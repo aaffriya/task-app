@@ -1,0 +1,55 @@
+version: '3.8'
+
+services:
+  server:
+    image: oven/bun:alpine
+    container_name: task_server
+    volumes:
+      - type: bind
+        source: backend/build/server.js
+        target: /app/server.js
+    environment:
+      - PORT=8000
+      - MONGO_URI=mongodb://localhost:27017/taskDB
+    working_dir: /app
+    command:
+      - sh
+      - -c
+      - |
+        bun server.js
+
+  nginx:
+    image: nginx:alpine
+    container_name: task-nginx
+    ports:
+      - "80:80"
+    # network_mode: host
+    restart: on-failure
+    volumes:
+      - type: bind
+        source: ./client/build
+        target: /usr/share/nginx/html
+
+      - type: bind
+        source: ./nginx/variable.prod.nginx
+        target: /etc/nginx/variable.local.nginx
+
+      - type: bind
+        source: ./nginx/server.api.conf
+        target: /etc/nginx/server.api.conf
+        
+      - type: bind
+        source: ./nginx/server.static.conf
+        target: /etc/nginx/server.static.conf
+
+      - type: bind
+        source: ./nginx/server.websocket.conf
+        target: /etc/nginx/server.websocket.conf
+
+      - type: bind
+        source: ./nginx/nginx.conf
+        target: /etc/nginx/nginx.conf
+
+      - type: bind
+        source: ./server/unix
+        target: /var/run/socket
