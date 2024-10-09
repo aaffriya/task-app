@@ -29,7 +29,7 @@ A task management system that allows users to create, update, manage, and track 
 - **Database**: MongoDB
 
 ## Screenshots
-![Screenshot of Application](frontend/public/screenshot.png)
+![Screenshot of Application](./frontend/public/screenshot.png)
 
 
 ## Installation Guide
