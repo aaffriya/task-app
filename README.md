@@ -29,7 +29,8 @@ A task management system that allows users to create, update, manage, and track 
 - **Database**: MongoDB
 
 ## Screenshots
-*Include screenshots of the app, showcasing the task list, forms, and analytics dashboard.*
+![Screenshot of Application](frontend/public/screenshot.png)
+
 
 ## Installation Guide
 
